@@ -1,0 +1,241 @@
+0,nch,nch
+0,what's the nch,what's the nch
+0,what is the nch,what is the nch
+0,what is nch,what is nch
+0,what's nch,what's nch
+1,What is the definition of nch,What is the definition of nch
+1,nch's definition,nch's definition
+2,nch's id,nch's id
+2,What is the id of nch,What is the id of nch
+3,What is the name of nch,What is the name of nch
+3,nch's name,nch's name
+4,What is related to nch,What is related to nch
+4,What are the related items of nch,What are the related item of nch
+5,What is the parent node of nch,What is the parent node of nch
+5,nch's father,nch's father
+5,What is nch's father,What is nch's father
+6,What is the gene ontology related to nch,What is the gene ontology related to nch
+6,nch's gene ontology,nch's gene ontology
+6,What are the gene ontology related to nch,What are the gene ontology related to nch
+7,nch's gene,nch's gene
+7,What is the gene related to nch,What is the gene related to nch
+7,What are the gene related to nch,What are the gene related to nch
+8,nch's pathway,nch's pathway
+8,What is the pathway related to nch,What is the pathway related to nch
+8,What are the pathway related to nch,What are the pathway related to nch
+8,dose nch have pathway,dose nch have pathway
+8,dose nch have path,dose nch have path
+8,nch's path,nch's path
+8,What is the path related to nch,What is the path related to nch
+8,What are the path related to nch,What are the path related to nch
+9,nch's disease,nch's disease
+9,What is the disease related to nch,What is the disease related to nch
+9,What are the disease related to nch,What are the disease related to nch
+9,What is the hazards of nch,What is the hazard of nch
+9,nch will cause what disease,nch will cause what disease
+9,The hazards of nch,The hazard of nch
+9,What are hazards related to nch,What are hazard related to nch
+10,What environment causes excessive nch,What environment cause excessive nch
+10,What environment causes nch to be missing,What environment cause nch to be missing
+10,What environmental factors are related to nch,What environmental factor are related to nch
+10,What exposure are related to nch,What exposure are related to nch
+10,What exposure is related to nch,What exposure is related to nch
+11,ngo,ngo
+11,what is ngo,what is ngo
+12,What is the definition of ngo,What is the definition of ngo
+12,ngo's definition,ngo's definition
+13,nog's name,nog's name
+13,What is the name of ngo,What is the name of ngo
+14,What is the id of ngo,What is the id of ngo
+14,ngo's id,ngo's id
+15,What is related to ngo,What is related to ngo
+15,What are the related items of ngo,What are the related item of ngo
+16,What is the parent node of ngo,What is the parent node of ngo
+16,ngo's father,ngo's father
+16,What is ngo's father,What is ngo's father
+17,ngo's gene,ngo's gene
+17,What is the gene related to ngo,What is the gene related to ngo
+17,What are the gene related to ngo,What are the gene related to ngo
+18,ngo's chemical,ngo's chemical
+18,What is the chemical related to ngo,What is the chemical related to ngo
+18,What are the chemicals related to ngo,What are the chemical related to ngo
+19,nge,nge
+19,what is nge,what is nge
+20,the id of nge,the id of nge
+20,nge's id,nge's id
+20,what's the id of nge,what's the id of nge
+21,the seqname of nge,the seqname of nge
+21,nge's seqname,nge's seqname
+21,what's the seqname of nge,what's the seqname of nge
+21,the chromosome of nge,the chromosome of nge
+21,nge's chromosome,nge's chromosome
+21,what's the chromosome of nge,what's the chromosome of nge
+22,the start pos of nge,the start po of nge
+22,nge's start pos,nge's start po
+22,what's the start pos of nge,what's the start po of nge
+22,the start position of nge,the start position of nge
+22,nge's start position,nge's start position
+22,what's the start position of nge,what's the start position of nge
+23,the end pos of nge,the end po of nge
+23,nge's end pos,nge's end po
+23,what's the end pos of nge,what's the end po of nge
+23,the end position of nge,the end position of nge
+23,nge's end position,nge's end position
+23,what's the end position of nge,what's the end position of nge
+24,the strand of nge,the strand of nge
+24,nge's strand,nge's strand
+24,what's strand of nge,what's strand of nge
+25,nge's position,nge's position
+25,what's the position of nge,what's the position of nge
+25,the position of nge,the position of nge
+26,What is related to nge,What is related to nge
+26,What are the related items of nge,What are the related item of nge
+26,What items are related  of nge,What item are related of nge
+27,What is the gene ontology related to nge,What is the gene ontology related to nge
+27,nge's gene ontology,nge's gene ontology
+27,What are the gene ontology related to nge,What are the gene ontology related to nge
+28,What is the chemical related to nge,What is the chemical related to nge
+28,nge's chemical,nge's chemical
+28,What are the chemical related to nge,What are the chemical related to nge
+29,What is the path related to nge,What is the path related to nge
+29,nge's path,nge's path
+29,What are the path related to nge,What are the path related to nge
+29,What is the pathway related to nge,What is the pathway related to nge
+29,nge's pathway,nge's pathway
+29,What are the pathway related to nge,What are the pathway related to nge
+30,nge's ontology,nge's ontology
+30,What is the ontology related to nge,What is the ontology related to nge
+30,What are the ontology related to nge,What are the ontology related to nge
+31,What is the hpo related to nge,What is the hpo related to nge
+31,nge's hpo,nge's hpo
+31,What are the hpo related to nge,What are the hpo related to nge
+31,What is the human phenotype ontology related to nge,What is the human phenotype ontology related to nge
+31,nge's human phenotype ontology,nge's human phenotype ontology
+31,What are the human phenotype ontology related to nge,What are the human phenotype ontology related to nge
+31,What is the hp related to nge,What is the hp related to nge
+31,nge's hp,nge's hp
+31,What are the hp related to nge,What are the hp related to nge
+32,nhp,nhp
+32,what is nhp,what is nhp
+33,the id of nhp,the id of nhp
+33,nhp's id,nhp's id
+33,what's the id of nhp,what's the id of nhp
+34,What is the definition of nhp,What is the definition of nhp
+34,nhp's definition,nhp's definition
+35,nhp's name,nhp's name
+35,What is the name of nhp,What is the name of nhp
+36,nhp's father,nhp's father
+36,What is the father of nhp,What is the father of nhp
+37,nhp's children,nhp's child
+37,What is the children of nhp,What is the child of nhp
+38,What is the gene related to nhp,What is the gene related to nhp
+38,nhp's gene,nhp's gene
+38,What are the gene related to nhp,What are the gene related to nhp
+39,What is the omim related to nhp,What is the omim related to nhp
+39,nhp's omim,nhp's omim
+39,What are the omim related to nhp,What are the omim related to nhp
+40,ndo,ndo
+40,what is ndo,what is ndo
+41,the id of ndo,the id of ndo
+41,ndo's id,ndo's id
+41,what's the id of ndo,what's the id of ndo
+42,What is the definition of ndo,What is the definition of ndo
+42,ndo's definition,ndo's definition
+43,ndo's name,ndo's name
+43,What is the name of ndo,What is the name of ndo
+44,ndo's father,ndo's father
+44,What is the father of ndo,What is the father of ndo
+45,ndo's children,ndo's child
+45,What is the children of ndo,What is the child of ndo
+46,What is the disease related to ndo,What is the disease related to ndo
+46,ndo's disease,ndo's disease
+46,What are the disease related to ndo,What are the disease related to ndo
+47,What is the omim related to ndo,What is the omim related to ndo
+47,ndo's omim,ndo's omim
+47,What are the omim related to ndo,What are the omim related to ndo
+48,nom,nom
+48,what is nom,what is nom
+49,the id of nom,the id of nom
+49,nom's id,nom's id
+49,what's the id of nom,what's the id of nom
+50,nom's name,nom's name
+50,What is the name of nom,What is the name of nom
+51,What is the disease related to nom,What is the disease related to nom
+51,nom's disease,nom's disease
+51,What are the disease related to nom,What are the disease related to nom
+52,What is the hpo related to nom,What is the hpo related to nom
+52,nom's hpo,nom's hpo
+52,What are the hpo related to nom,What are the hpo related to nom
+52,What is the hp related to nom,What is the hp related to nom
+52,nom's hp,nom's hp
+52,What are the hp related to nom,What are the hp related to nom
+53,What is the do related to nom,What is the do related to nom
+53,nom's do,nom's do
+53,What are the do related to nom,What are the do related to nom
+54,What is the ontology related to nom,What is the ontology related to nom
+54,nom's ontology,nom's ontology
+54,What are the ontology related to nom,What are the ontology related to nom
+55,nex,nex
+55,what is nex,what is nex
+56,the id of nex,the id of nex
+56,nex's id,nex's id
+56,what's the id of nex,what's the id of nex
+57,nex's name,nex's name
+57,What is the name of nex,What is the name of nex
+58,What is the disease related to nex,What is the disease related to nex
+58,nex's disease,nex's disease
+58,What are the disease related to nex,What are the disease related to nex
+59,What is the chemical related to nex,What is the chemical related to nex
+59,nex's chemical,nex's chemical
+59,What are the chemical related to nex,What are the chemical related to nex
+60,ndi,ndi
+60,what is ndi,what is ndi
+61,the id of ndi,the id of ndi
+61,ndi's id,ndi's id
+61,what's the id of ndi,what's the id of ndi
+62,ndi's name,ndi's name
+62,What is the name of ndi,What is the name of ndi
+63,What is the chemical related to ndi,What is the chemical related to ndi
+63,ndi's chemical,ndi's chemical
+63,What are the chemical related to ndi,What are the chemical related to ndi
+64,What is the path related to ndi,What is the path related to ndi
+64,ndi's path,ndi's path
+64,What are the path related to ndi,What are the path related to ndi
+64,What is the pathway related to ndi,What is the pathway related to ndi
+64,ndi's pathway,ndi's pathway
+64,What are the pathway related to ndi,What are the pathway related to ndi
+65,What is the do related to ndi,What is the do related to ndi
+65,ndi's do,ndi's do
+65,What are the do related to ndi,What are the do related to ndi
+66,What is the disease ontology related to ndi,What is the disease ontology related to ndi
+66,ndi's disease ontology,ndi's disease ontology
+66,What are the disease ontology related to ndi,What are the disease ontology related to ndi
+67,What is the omim related to ndi,What is the omim related to ndi
+67,ndi's omim,ndi's omim
+67,What are the omim related to ndi,What are the omim related to ndi
+68,What is the environment related to ndi,What is the environment related to ndi
+68,ndi's environment,ndi's environment
+68,What are the environment related to ndi,What are the environment related to ndi
+68,What environment causes ndi,What environment cause ndi
+68,What environmental factors are related to ndi,What environmental factor are related to ndi
+68,What exposure are related to ndi,What exposure are related to ndi
+68,What exposure is related to ndi,What exposure is related to ndi
+69,What is the ontology related to ndi,What is the ontology related to ndi
+69,ndi's ontology,ndi's ontology
+69,What are the ontology related to ndi,What are the ontology related to ndi
+70,npa,npa
+70,what is npa,what is npa
+71,the id of npa,the id of npa
+71,npa's id,npa's id
+71,what's the id of npa,what's the id of npa
+72,npa's name,npa's name
+72,What is the name of npa,What is the name of npa
+73,What is the chemical related to npa,What is the chemical related to npa
+73,npa's chemical,npa's chemical
+73,What are the chemical related to npa,What are the chemical related to npa
+74,What is the gene related to npa,What is the gene related to npa
+74,npa's gene,npa's gene
+74,What are the gene related to npa,What are the gene related to npa
+75,What is the disease related to ndi,What is the disease related to ndi
+75,ndi's disease,ndi's disease
+75,What are the disease related to ndi,What are the disease related to ndi
