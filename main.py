@@ -10,6 +10,11 @@ from sklearn.metrics import classification_report
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import re
+from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet_ic
+import Levenshtein
+import gensim
+import os
 
 WordDict={}
 tokenizer=0
@@ -46,13 +51,37 @@ def GetKeyInfo(que):
     pos_tags = nltk.pos_tag(tokens)
     print(pos_tags)
     listKey=[]
+    IsFindKeyWord=False
     #replace own tag
     for SigWord in pos_tags:
         if SigWord[1].startswith('NN') or SigWord[1]=='FW' or SigWord[1].startswith('JJ'):
             if SigWord[0] in WordDict:
+                IsFindKeyWord=True
                 Windex=pos_tags.index(SigWord)
                 tokens[Windex]=WordDict[SigWord[0]]
                 listKey.append(SigWord[0])
+    #no key word, find similary word
+    if not IsFindKeyWord:
+        tokens,listKey = FindSimilaryWord(que)
+    return tokens,listKey
+
+def FindSimilaryWord(que):
+    count=0
+    MaxSimilary=0
+    tokens=[]
+    listKey=[]
+    SimilaryWord=""
+
+    for myWord in WordDict:
+        TmpSimilary=WordSimilary(que, myWord)
+        if TmpSimilary>MaxSimilary:
+            MaxSimilary=TmpSimilary
+            SimilaryWord=myWord
+        count+=1
+        if count%100==0:
+            print(count,' word: ',SimilaryWord,' similary: ',MaxSimilary)
+    tokens=[que]
+    listKey.append(SimilaryWord)
     return tokens,listKey
 
 
@@ -261,13 +290,77 @@ def GetCQL(QuestionIndex, KeywordList):
         print("error in question index")
     return CQL
 
+
+def WordSimilary(Lstr,Rstr,alpha=0.5,deepSearch=True):
+    Lstr=Lstr.strip()
+    Rstr=Rstr.strip()
+    if ' ' in Lstr:
+        LstrNoSP=Lstr.replace(' ','_')
+        WnLstr = wn.synsets(LstrNoSP)
+    else:
+        WnLstr = wn.synsets(Lstr)
+    if ' ' in Rstr:
+        RstrNoSP=Rstr.replace(' ','_')
+        WnRstr = wn.synsets(RstrNoSP)
+    else:
+        WnRstr = wn.synsets(Rstr)
+
+    LinSimilary=LDSimilary=0
+    if WnLstr and WnRstr and WnLstr[0].name().split('.')[1]==WnRstr[0].name().split('.')[1]:
+        semcor_ic = wordnet_ic.ic('ic-semcor.dat')
+        LinSimilary=WnLstr[0].lin_similarity(WnRstr[0], semcor_ic)
+    elif (' ' in Lstr or ' ' in Rstr) and deepSearch:
+        totalSimilary = 0
+        for lword in Lstr.split(' '):
+            lmaxSimilary=0
+            for rword in Rstr.split(' '):
+                lmaxSimilary=max(lmaxSimilary,WordSimilary(lword,rword,1))
+            totalSimilary+=lmaxSimilary
+        LinSimilary = totalSimilary / max(len(Lstr.split(' ')),len(Rstr.split(' ')))
+
+    LDSimilary=Levenshtein.jaro(Lstr.lower(), Rstr.lower())
+    return LinSimilary*alpha + LDSimilary*(1-alpha)
+
+#not used
+def WordVecSimilary():
+    corpus = nltk.corpus.brown.sents()
+
+    fname = 'word2vec/brown/brown_skipgram.model'
+    if os.path.exists(fname):
+        # load the file if it has already been trained, to save repeating the slow training step below
+        model = gensim.models.Word2Vec.load(fname)
+    else:
+        # can take a few minutes, grab a cuppa
+        model = gensim.models.Word2Vec(corpus, size=100, min_count=1, workers=2, iter=50)
+        model.save(fname)
+    #print(model.similarity("air Pollutant", "air Pollutant pollution"))
+
+    # fname = 'word2vec/Wikipedia/wikipedia.model1'
+    # fname2='word2vec/Biomedical/wikipedia-pubmed-and-PMC-w2v.model'
+    # if os.path.exists(fname):
+    #     # load the file if it has already been trained, to save repeating the slow training step below
+    #     model = gensim.models.Word2Vec.load(fname)
+    # else:
+    #     # can take a few minutes, grab a cuppa
+    #     model=gensim.models.KeyedVectors.load_word2vec_format('word2vec/Wikipedia/model.bin',binary=True)
+    #     model.save(fname)
+    #print(model.similarity("air Pollutant", "air pollution"))
+    print(model.n_similarity(["air","Pollutant"],["air","pollution"]))
+
+
 if __name__ == '__main__':
+    WordVecSimilary()
+    exit()
+    print(WordSimilary("Acid Rain",'air pollution'))
+    print(WordSimilary("air Pollutants", 'air pollution'))
+    exit()
+    #WordSimilary("air Contamination","air pollution")
     que = "what is REACT:R-HSA-2485179"
     que2='the definition of MESH:C481454'
-    que3="SNAP 5540's hazard"
+    que3="air pollution"
     LoadWordData()
     LoadTokenizer()
-    question=LemmatizerQuestion(que)
+    question=LemmatizerQuestion(que3)
     tokens, keyList = GetKeyInfo(question)
     QuestionIndex=PredictQuestion(tokens)
     print(QuestionIndex)
