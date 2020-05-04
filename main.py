@@ -16,6 +16,7 @@ import Levenshtein
 import gensim
 import os
 
+
 WordDict={}
 tokenizer=0
 
@@ -373,6 +374,10 @@ def WordVecSimilary():
     #print(model.similarity("air Pollutant", "air pollution"))
     print(model.n_similarity(["air","Pollutant"],["air","pollution"]))
 
+def DropStopword(question):
+    stop_words = set(stopwords.words('english'))
+    filtered_sentence = [w for w in question.split(' ') if not w in stop_words]
+    return ' '.join(filtered_sentence)
 
 if __name__ == '__main__':
     # print(WordSimilary("Acid Rain",'air pollution'))
@@ -382,10 +387,11 @@ if __name__ == '__main__':
     que = "what is REACT:R-HSA-2485179"
     que2='the definition of MESH:C481454'
     que3="air pollution"
-    que4='aluminium'
+    que4='what is aluminium'
     LoadWordData()
     LoadTokenizer()
-    question=LemmatizerQuestion(que4)
+    NSWquestion=DropStopword(que2)
+    question=LemmatizerQuestion(NSWquestion)
     tokens, keyList = GetKeyInfo(question)  #tokens=["what","is","nxx"] keylist=["yyy"]
     if keyList:
         QuestionIndex = PredictQuestion(tokens)
@@ -394,7 +400,7 @@ if __name__ == '__main__':
         print(CQL)
     else:
         # no key word, find similary word
-        tokens, listKey = FindSimilaryWord(que4) #tokens=[["what","is","nxx"][...][...]] keylist=[["yyy"][...][...]]
+        tokens, listKey = FindSimilaryWord(question) #tokens=[["what","is","nxx"][...][...]] keylist=[["yyy"][...][...]]
         for token,key in zip(tokens,listKey):
             QuestionIndex=PredictQuestion(token)
             print(QuestionIndex)
