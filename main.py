@@ -60,28 +60,43 @@ def GetKeyInfo(que):
                 Windex=pos_tags.index(SigWord)
                 tokens[Windex]=WordDict[SigWord[0]]
                 listKey.append(SigWord[0])
-    #no key word, find similary word
-    if not IsFindKeyWord:
-        tokens,listKey = FindSimilaryWord(que)
     return tokens,listKey
 
-def FindSimilaryWord(que):
+def HasSimilaryChar(lstr,rstr):
+    if '"' in lstr:
+        return '"' in rstr
+    elif '-' in lstr and ':' in lstr:
+        return '-' in rstr and ':' in rstr
+    elif '-' in lstr:
+        return '-' in rstr
+    elif ':' in lstr:
+        return ':' in rstr
+    return True
+
+def FindSimilaryWord(que,topk=3):
     count=0
     MaxSimilary=0
     tokens=[]
     listKey=[]
     SimilaryWord=""
+    tmpWordict=[]
 
+    sigtopk={}
     for myWord in WordDict:
-        TmpSimilary=WordSimilary(que, myWord)
-        if TmpSimilary>MaxSimilary:
-            MaxSimilary=TmpSimilary
-            SimilaryWord=myWord
+        if HasSimilaryChar(myWord, que):
+            TmpSimilary=WordSimilary(que, myWord)
+            if TmpSimilary>MaxSimilary:
+                MaxSimilary=TmpSimilary
+                SimilaryWord=myWord
         count+=1
         if count%100==0:
-            print(count,' word: ',SimilaryWord,' similary: ',MaxSimilary)
-    tokens=[que]
-    listKey.append(SimilaryWord)
+            if SimilaryWord not in sigtopk.keys():
+                sigtopk[SimilaryWord]=MaxSimilary
+                print(count, ' word: ', SimilaryWord, ' similary: ', MaxSimilary)
+    listtmp = sorted(sigtopk.items(), key=lambda x: x[1], reverse=True)[:topk]
+    for ele in listtmp:
+        tokens.append([WordDict[ele[0]]])
+        listKey.append([ele[0]])
     return tokens,listKey
 
 
@@ -290,15 +305,24 @@ def GetCQL(QuestionIndex, KeywordList):
         print("error in question index")
     return CQL
 
-
+semcor_ic = wordnet_ic.ic('ic-semcor.dat')
+lastword=""
+lastWn=""
 def WordSimilary(Lstr,Rstr,alpha=0.5,deepSearch=True):
-    Lstr=Lstr.strip()
-    Rstr=Rstr.strip()
-    if ' ' in Lstr:
+    # Lstr=Lstr.strip()
+    # Rstr=Rstr.strip()
+    global lastword,lastWn
+    if lastword==Lstr:
+        WnLstr=lastWn
+    elif ' ' in Lstr:
         LstrNoSP=Lstr.replace(' ','_')
         WnLstr = wn.synsets(LstrNoSP)
+        lastWn=WnLstr
+        lastword=LstrNoSP
     else:
         WnLstr = wn.synsets(Lstr)
+        lastWn=WnLstr
+        lastword=Lstr
     if ' ' in Rstr:
         RstrNoSP=Rstr.replace(' ','_')
         WnRstr = wn.synsets(RstrNoSP)
@@ -307,18 +331,20 @@ def WordSimilary(Lstr,Rstr,alpha=0.5,deepSearch=True):
 
     LinSimilary=LDSimilary=0
     if WnLstr and WnRstr and WnLstr[0].name().split('.')[1]==WnRstr[0].name().split('.')[1]:
-        semcor_ic = wordnet_ic.ic('ic-semcor.dat')
         LinSimilary=WnLstr[0].lin_similarity(WnRstr[0], semcor_ic)
     elif (' ' in Lstr or ' ' in Rstr) and deepSearch:
         totalSimilary = 0
         for lword in Lstr.split(' '):
             lmaxSimilary=0
             for rword in Rstr.split(' '):
-                lmaxSimilary=max(lmaxSimilary,WordSimilary(lword,rword,1))
+                wntmpl=wn.synsets(lword)
+                wntmpr = wn.synsets(rword)
+                if wntmpl and wntmpr and wntmpl[0].name().split('.')[1]==wntmpr[0].name().split('.')[1]:
+                    lmaxSimilary=max(lmaxSimilary,wntmpl[0].lin_similarity(wntmpr[0], semcor_ic))
             totalSimilary+=lmaxSimilary
         LinSimilary = totalSimilary / max(len(Lstr.split(' ')),len(Rstr.split(' ')))
-
-    LDSimilary=Levenshtein.jaro(Lstr.lower(), Rstr.lower())
+    if alpha!=1:
+        LDSimilary=Levenshtein.jaro(Lstr.lower(), Rstr.lower())
     return LinSimilary*alpha + LDSimilary*(1-alpha)
 
 #not used
@@ -349,22 +375,30 @@ def WordVecSimilary():
 
 
 if __name__ == '__main__':
-    WordVecSimilary()
-    exit()
-    print(WordSimilary("Acid Rain",'air pollution'))
-    print(WordSimilary("air Pollutants", 'air pollution'))
-    exit()
+    # print(WordSimilary("Acid Rain",'air pollution'))
+    # print(WordSimilary("air Pollutants", 'air pollution'))
+    # exit()
     #WordSimilary("air Contamination","air pollution")
     que = "what is REACT:R-HSA-2485179"
     que2='the definition of MESH:C481454'
     que3="air pollution"
+    que4='aluminium'
     LoadWordData()
     LoadTokenizer()
-    question=LemmatizerQuestion(que3)
-    tokens, keyList = GetKeyInfo(question)
-    QuestionIndex=PredictQuestion(tokens)
-    print(QuestionIndex)
-    CQL = GetCQL(int(QuestionIndex[0]),keyList)
-    print(CQL)
+    question=LemmatizerQuestion(que4)
+    tokens, keyList = GetKeyInfo(question)  #tokens=["what","is","nxx"] keylist=["yyy"]
+    if keyList:
+        QuestionIndex = PredictQuestion(tokens)
+        print(QuestionIndex)
+        CQL = GetCQL(int(QuestionIndex[0]), keyList)
+        print(CQL)
+    else:
+        # no key word, find similary word
+        tokens, listKey = FindSimilaryWord(que4) #tokens=[["what","is","nxx"][...][...]] keylist=[["yyy"][...][...]]
+        for token,key in zip(tokens,listKey):
+            QuestionIndex=PredictQuestion(token)
+            print(QuestionIndex)
+            CQL = GetCQL(int(QuestionIndex[0]),key)
+            print(CQL)
     print("All done!")
 
