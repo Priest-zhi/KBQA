@@ -20,7 +20,7 @@ import os
 WordDict={}
 tokenizer=0
 
-def LoadWordData(file="questions/myWord.txt"):
+def LoadWordData(file=os.path.dirname(os.path.realpath(__file__))+"/questions/myWord.txt"):
     linecount=0
     with open(file, mode='r',encoding='utf-8') as fr:
         while True:
@@ -101,7 +101,7 @@ def FindSimilaryWord(que,topk=3):
     return tokens,listKey
 
 
-def LoadQuestionData(file="questions/questiondata.csv",columData=2,labelData=0):
+def LoadQuestionData(file=os.path.dirname(os.path.realpath(__file__))+"/questions/questiondata.csv",columData=2,labelData=0):
     QueDataList=[]
     QueClassList=[]
     with open(file, mode='r',encoding='utf-8') as fr:
@@ -129,8 +129,8 @@ def PredictQuestion(tokens):
 
 def LemmatizerDataset():    #数据集 词性还原
     LoadTokenizer()
-    querylist,label=LoadQuestionData("questions/questiondata_copy.csv",columData=1)
-    with open("questions/questiondata.csv",'w') as fw:
+    querylist,label=LoadQuestionData(os.path.dirname(os.path.realpath(__file__))+"/questions/questiondata_copy.csv",columData=1)
+    with open(os.path.dirname(os.path.realpath(__file__))+"/questions/questiondata.csv",'w') as fw:
         lmtzr = WordNetLemmatizer()
         for queryEle, labelEle in zip(querylist,label):
             tokens = tokenizer.tokenize(question.split(' '))
@@ -152,9 +152,9 @@ def GetCQL(QuestionIndex, KeywordList):
     if QuestionIndex == 0:
         CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}'  RETURN n".format(KeywordList[0])
     elif QuestionIndex == 1:
-        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n.Definition".format(KeywordList[0])
+        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.Definition".format(KeywordList[0])
     elif QuestionIndex == 2:
-        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n.Definition".format(KeywordList[0])
+        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.Definition".format(KeywordList[0])
     elif QuestionIndex == 3:
         CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
     elif QuestionIndex == 4:
@@ -378,6 +378,39 @@ def DropStopword(question):
     stop_words = set(stopwords.words('english'))
     filtered_sentence = [w for w in question.split(' ') if not w in stop_words]
     return ' '.join(filtered_sentence)
+
+def init():
+    global WordDict,tokenizer,semcor_ic,lastword,lastWn
+    WordDict = {}
+    tokenizer = 0
+    semcor_ic = wordnet_ic.ic('ic-semcor.dat')
+    lastword = ""
+    lastWn = ""
+    LoadWordData()
+    LoadTokenizer()
+
+def GetCQLfromQuestion(sentence):
+    NSWquestion=DropStopword(sentence)
+    question=LemmatizerQuestion(NSWquestion)
+    tokens, keyList = GetKeyInfo(question)  #tokens=["what","is","nxx"] keylist=["yyy"]
+    CQLlist=[]
+    if keyList:
+        QuestionIndex = PredictQuestion(tokens)
+        print(QuestionIndex)
+        CQL = GetCQL(int(QuestionIndex[0]), keyList)
+        CQLlist.append(CQL)
+        print(CQL)
+    else:
+        # no key word, find similary word
+        tokens, listKey = FindSimilaryWord(question) #tokens=[["what","is","nxx"][...][...]] keylist=[["yyy"][...][...]]
+        for token,key in zip(tokens,listKey):
+            QuestionIndex=PredictQuestion(token)
+            print(QuestionIndex)
+            CQL = GetCQL(int(QuestionIndex[0]),key)
+            CQLlist.append(CQL)
+            print(CQL)
+    return CQLlist
+    print("All done!")
 
 if __name__ == '__main__':
     # print(WordSimilary("Acid Rain",'air pollution'))
