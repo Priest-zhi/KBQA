@@ -156,9 +156,9 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 2:
         CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.Definition".format(KeywordList[0])
     elif QuestionIndex == 3:
-        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 4:
-        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL="MATCH (n:Chemical) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 5:
         CQL="MATCH (n1:Chemical)-[r:father]->(n:Chemical) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 6:
@@ -174,11 +174,11 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 11:
         CQL="MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 12:
-        CQL = "MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n.Definition".format(KeywordList[0])
+        CQL = "MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.Definition".format(KeywordList[0])
     elif QuestionIndex == 13:
-        CQL = "MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL = "MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 14:
-        CQL = "MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL = "MATCH (n:GO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 15:
         CQL="MATCH (n1:GO)-[r]-(n) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 16:
@@ -190,17 +190,17 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 19:
         CQL="MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 20:
-        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n.attribute_gene_id".format(KeywordList[0])
+        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n,n.attribute_gene_id".format(KeywordList[0])
     elif QuestionIndex == 21:
-        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n.seqname".format(KeywordList[0])
+        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n,n.seqname".format(KeywordList[0])
     elif QuestionIndex == 22:
-        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n.start".format(KeywordList[0])
+        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n,n.start".format(KeywordList[0])
     elif QuestionIndex == 23:
-        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n.end".format(KeywordList[0])
+        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n,n.end".format(KeywordList[0])
     elif QuestionIndex == 24:
-        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n.strand".format(KeywordList[0])
+        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n,n.strand".format(KeywordList[0])
     elif QuestionIndex == 25:
-        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n.start, n.end".format(KeywordList[0])
+        CQL = "MATCH (n:GENE) WHERE n.attribute_gene_name='{0}' RETURN n,n.start, n.end".format(KeywordList[0])
     elif QuestionIndex == 26:
         CQL = "MATCH (n1:GENE)-[r]-(n) WHERE n1.attribute_gene_name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 27:
@@ -216,11 +216,11 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 32:
         CQL="MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 33:
-        CQL = "MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL = "MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 34:
-        CQL = "MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n.Definition".format(KeywordList[0])
+        CQL = "MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.Definition".format(KeywordList[0])
     elif QuestionIndex == 35:
-        CQL = "MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL = "MATCH (n:HPO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 36:
         CQL = "MATCH (n1:HPO)-[r:father]->(n:HPO) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 37:
@@ -232,11 +232,11 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 40:
         CQL="MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 41:
-        CQL = "MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL = "MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 42:
-        CQL = "MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n.Definition".format(KeywordList[0])
+        CQL = "MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.Definition".format(KeywordList[0])
     elif QuestionIndex == 43:
-        CQL = "MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL = "MATCH (n:DO) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 44:
         CQL = "MATCH (n1:DO)-[r:father]->(n:DO) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 45:
@@ -248,9 +248,9 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 48:
         CQL="MATCH (n:OMIM) WHERE n.id='{0}' or n.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 49:
-        CQL = "MATCH (n:OMIM) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL = "MATCH (n:OMIM) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 50:
-        CQL = "MATCH (n:OMIM) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL = "MATCH (n:OMIM) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 51:
         CQL = "MATCH (n1:OMIM)-[r]-(n:Disease) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 52:
@@ -262,9 +262,9 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 55:
         CQL = "MATCH (n:Exposure) WHERE ANY (ex in n.exposurestressors where ex =~ '(?i).*{0}.*') RETURN n".format(KeywordList[0])
     elif QuestionIndex == 56:
-        CQL = "MATCH (n:Exposure) WHERE ANY (ex in n.exposurestressors where ex =~ '(?i).*{0}.*') RETURN n.exposurestressors".format(KeywordList[0])
+        CQL = "MATCH (n:Exposure) WHERE ANY (ex in n.exposurestressors where ex =~ '(?i).*{0}.*') RETURN n,n.exposurestressors".format(KeywordList[0])
     elif QuestionIndex == 57:
-        CQL = "MATCH (n:Exposure) WHERE ANY (ex in n.exposurestressors where ex =~ '(?i).*{0}.*') RETURN n.exposurestressors".format(KeywordList[0])
+        CQL = "MATCH (n:Exposure) WHERE ANY (ex in n.exposurestressors where ex =~ '(?i).*{0}.*') RETURN n,n.exposurestressors".format(KeywordList[0])
     elif QuestionIndex == 58:
         CQL = "MATCH (n1:Exposure)-[r]-(n:Disease) WHERE ANY (ex in n1.exposurestressors where ex =~ '(?i).*{0}.*') RETURN n".format(KeywordList[0])
     elif QuestionIndex == 59:
@@ -272,9 +272,9 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 60:
         CQL = "MATCH (n:Disease) WHERE n.id='{0}' or n.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 61:
-        CQL = "MATCH (n:Disease) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL = "MATCH (n:Disease) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 62:
-        CQL = "MATCH (n:Disease) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL = "MATCH (n:Disease) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 63:
         CQL = "MATCH (n1:Disease)-[r]-(n:Chemical) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 64:
@@ -292,9 +292,9 @@ def GetCQL(QuestionIndex, KeywordList):
     elif QuestionIndex == 70:
         CQL = "MATCH (n:Pathway) WHERE n.id='{0}' or n.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 71:
-        CQL = "MATCH (n:Pathway) WHERE n.id='{0}' or n.name='{0}' RETURN n.id".format(KeywordList[0])
+        CQL = "MATCH (n:Pathway) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.id".format(KeywordList[0])
     elif QuestionIndex == 72:
-        CQL = "MATCH (n:Pathway) WHERE n.id='{0}' or n.name='{0}' RETURN n.name".format(KeywordList[0])
+        CQL = "MATCH (n:Pathway) WHERE n.id='{0}' or n.name='{0}' RETURN n,n.name".format(KeywordList[0])
     elif QuestionIndex == 73:
         CQL = "MATCH (n1:Pathway)-[r]-(n:Chemical) WHERE n1.id='{0}' or n1.name='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 74:
