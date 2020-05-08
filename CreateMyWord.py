@@ -1,9 +1,7 @@
 import csv
 from py2neo import Graph, Node, Relationship
 
-
-
-if __name__ == '__main__':
+def CreateMyword():
     Dgraph = Graph("http://localhost:7474")
     Nodes={"Chemical":"nch","DO":"ndo","Disease":"ndi","Exposure":"nex","GENE":"nge","GO":"ngo","HPO":"nhp","OMIM":"nom","Pathway":"npa"}
     nodecount=0
@@ -30,3 +28,17 @@ if __name__ == '__main__':
                 nodecount+=1
                 if nodecount%5000==0:
                     print(nodecount)
+
+
+def AddNcRNA():
+    graph = Graph("http://localhost:7474")
+    with open('questions/myWord.txt', 'a', encoding='utf-8') as fw:
+        resultTerms = graph.run('MATCH (n:ncRNA) RETURN n').data()
+        for termDict in resultTerms:
+            term = termDict["n"]
+            if term and "Symbol" in term:
+                str = "RNA-"+term["Symbol"] + '\t' + "nnr" + '\n'
+                fw.write(str)
+
+if __name__ == '__main__':
+    AddNcRNA()
