@@ -28,10 +28,11 @@ def LoadWordData(file=os.path.dirname(os.path.realpath(__file__))+"/questions/my
             if not line:
                 break
             line_list = line.strip('\n').split('\t')
-            WordDict[line_list[0]]=line_list[1]
-            # linecount+=1
-            # if linecount>=100:
-            #     break
+            if line_list[0] in WordDict:
+                if line_list[1] not in WordDict[line_list[0]]:
+                    WordDict[line_list[0]].append(line_list[1])
+            else:
+                WordDict[line_list[0]]=[line_list[1]]
     print("load word data complete!")
 
 def LoadTokenizer():
@@ -56,11 +57,19 @@ def GetKeyInfo(que):
     #replace own tag
     for SigWord in pos_tags:
         if SigWord[1].startswith('NN') or SigWord[1]=='FW' or SigWord[1].startswith('JJ'):
-            if SigWord[0] in WordDict:
-                IsFindKeyWord=True
-                Windex=pos_tags.index(SigWord)
-                tokens[Windex]=WordDict[SigWord[0]]
-                listKey.append(SigWord[0])
+            for tmpword in WordDict:
+                if SigWord[0].lower()==tmpword.lower():
+                    IsFindKeyWord = True
+                    Windex = pos_tags.index(SigWord)
+                    tokens[Windex] = ' '.join(WordDict[tmpword])
+                    listKey.append(tmpword)
+                    break
+            # if SigWord[0] in WordDict:
+            #     IsFindKeyWord=True
+            #     Windex=pos_tags.index(SigWord)
+            #     tokens[Windex]=WordDict[SigWord[0]]
+            #     listKey.append(SigWord[0])
+
     return tokens,listKey
 
 def HasSimilaryChar(lstr,rstr):
@@ -96,7 +105,7 @@ def FindSimilaryWord(que,topk=3):
                 print(count, ' word: ', SimilaryWord, ' similary: ', MaxSimilary)
     listtmp = sorted(sigtopk.items(), key=lambda x: x[1], reverse=True)[:topk]
     for ele in listtmp:
-        tokens.append([WordDict[ele[0]]])
+        tokens.append(WordDict[ele[0]])
         listKey.append([ele[0]])
     return tokens,listKey
 
@@ -305,6 +314,8 @@ def GetCQL(QuestionIndex, KeywordList):
         CQL = "MATCH (n:ncRNA) WHERE n1.Symbol='{0}' RETURN n".format(KeywordList[0])
     elif QuestionIndex == 77:
         CQL = "MATCH p=(n1:ncRNA)-[r]-(n:Disease) WHERE n.id='{0}' or n.name='{0}' RETURN p".format(KeywordList[0])
+    elif QuestionIndex == 78:
+        CQL="MATCH (na:Chemical)-[rel1]-(nb:Disease)-[rel2]-(nc:Exposure)-[rel3]-(n:Chemical),(nc:Exposure)-[rel4]-(nd) where na.name='{0}' and ANY (ax in nc.exposurestressors where ax =~ '(?i).*{0}.*')  RETURN na,rel1,nb,rel2,nc,rel4,nd".format(KeywordList[0])
     else:
         CQL="error in question index"
         print("error in question index")
@@ -424,12 +435,17 @@ if __name__ == '__main__':
     que = "what is REACT:R-HSA-2485179"
     que2='the definition of MESH:C481454'
     que3="air pollution"
-    que4='what is aluminium'
+    que4='what is Air Pollutants'
+    que5="The harm of excessive intake of aluminum"
+    que6="the position of gene mkks"
     LoadWordData()
     LoadTokenizer()
-    NSWquestion=DropStopword(que2)
+    NSWquestion=DropStopword(que6)
+    print("DropStopword: ",NSWquestion)
     question=LemmatizerQuestion(NSWquestion)
+    print("LemmatizerQuestion: ", question)
     tokens, keyList = GetKeyInfo(question)  #tokens=["what","is","nxx"] keylist=["yyy"]
+    print("tokens: ",tokens," listkey: ",keyList)
     if keyList:
         QuestionIndex = PredictQuestion(tokens)
         print(QuestionIndex)
